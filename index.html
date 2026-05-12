@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindSpace Psychology</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+    :root {
+      --sage: #d8e4d8;
+      --sage-deep: #75977c;
+      --slate: #2d3b44;
+      --slate-soft: #4f6570;
+      --cream: #f7f3ec;
+      --cream-soft: #faf7f1;
+      --shadow: 0 24px 50px rgba(45, 59, 68, 0.12);
+      --radius: 28px;
+      --transition: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: radial-gradient(circle at top left, rgba(221, 233, 220, 0.55), transparent 40%),
+                  linear-gradient(180deg, #fcfaf5 0%, #f7f3ec 100%);
+      color: #2d3b44;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(247, 243, 236, 0.86);
+      border-bottom: 1px solid rgba(73, 83, 92, 0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 0;
+    }
+
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.02em;
+      color: var(--slate);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      color: var(--slate-soft);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--slate);
+    }
+
+    .nav-cta {
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: var(--sage-deep);
+      color: #fff;
+      box-shadow: 0 16px 28px rgba(117, 151, 124, 0.22);
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus {
+      transform: translateY(-1px);
+      background: #647f6a;
+    }
+
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      place-items: center;
+      padding: 80px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(135, 164, 132, 0.24), transparent 20%),
+                  radial-gradient(circle at 80% 20%, rgba(118, 138, 113, 0.16), transparent 20%),
+                  radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.55), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      text-align: center;
+      margin: 0 auto;
+      padding: 48px 24px;
+      border-radius: 36px;
+      background: rgba(255, 255, 251, 0.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-copy h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 3.5vw, 4.6rem);
+      letter-spacing: -0.05em;
+      line-height: 1.02;
+      margin-bottom: 22px;
+      color: var(--slate);
+    }
+
+    .hero-copy p {
+      max-width: 680px;
+      margin: 0 auto 32px;
+      font-size: 1.1rem;
+      color: var(--slate-soft);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn,
+    .hero-actions .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: var(--sage-deep);
+      color: #fff;
+      box-shadow: 0 16px 32px rgba(117, 151, 124, 0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(117, 151, 124, 0.1);
+      color: var(--slate);
+    }
+
+    .btn:hover,
+    .btn:focus {
+      transform: translateY(-1.5px);
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .section-title span {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--sage-deep);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+    }
+
+    .section-title h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 2.6vw, 3rem);
+      color: var(--slate);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #fff;
+      border: 1px solid rgba(117, 151, 124, 0.12);
+      border-radius: 28px;
+      padding: 28px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 20px 40px rgba(45, 59, 68, 0.07);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+
+    .service-card:hover,
+    .service-card:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 60px rgba(45, 59, 68, 0.12);
+      border-color: var(--sage-deep);
+    }
+
+    .service-card svg {
+      width: 42px;
+      height: 42px;
+      color: var(--sage-deep);
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      color: var(--slate);
+    }
+
+    .service-card p {
+      color: var(--slate-soft);
+      font-size: 0.98rem;
+    }
+
+    .about-grid {
+      display: grid;
+      gap: 32px;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+    }
+
+    .about-image {
+      min-height: 420px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, #eaf2e6 0%, #f7f3ec 100%);
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: rgba(117, 151, 124, 0.16);
+      top: 16%;
+      left: 10%;
+      filter: blur(8px);
+    }
+
+    .about-image::after {
+      content: 'Dr. Sarah Mercer';
+      position: relative;
+      z-index: 1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--slate-soft);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .about-copy {
+      background: rgba(255,255,251,0.88);
+      border-radius: 36px;
+      box-shadow: var(--shadow);
+      padding: 38px;
+    }
+
+    .about-copy h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-bottom: 18px;
+      color: var(--slate);
+    }
+
+    .about-copy p {
+      color: var(--slate-soft);
+      margin-bottom: 22px;
+    }
+
+    .credential-list {
+      display: grid;
+      gap: 12px;
+      color: var(--slate-soft);
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .credential-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .credential-list li::before {
+      content: '•';
+      color: var(--sage-deep);
+      font-weight: 700;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .approach-card {
+      background: #fff;
+      border-radius: 32px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .approach-card:hover,
+    .approach-card:focus-within {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 42px rgba(45, 59, 68, 0.12);
+    }
+
+    .approach-icon {
+      width: 46px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--sage-deep);
+    }
+
+    .approach-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      color: var(--slate);
+    }
+
+    .approach-card p {
+      color: var(--slate-soft);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,251,0.94);
+      border-radius: 32px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .testimonial-stars {
+      display: inline-flex;
+      gap: 4px;
+      color: #c48f40;
+    }
+
+    .testimonial-card blockquote {
+      font-style: italic;
+      color: var(--slate-soft);
+      margin: 0;
+    }
+
+    .testimonial-card strong {
+      color: var(--slate);
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .faq-trigger {
+      width: 100%;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
+      border: none;
+      font-size: 1rem;
+      color: var(--slate);
+      cursor: pointer;
+    }
+
+    .faq-trigger span {
+      max-width: 90%;
+      text-align: left;
+    }
+
+    .faq-trigger svg {
+      transition: transform var(--transition);
+      color: var(--sage-deep);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 28px;
+    }
+
+    .faq-answer p {
+      color: var(--slate-soft);
+      margin: 0 0 24px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 240px;
+      padding: 0 28px 24px;
+    }
+
+    .faq-item.open .faq-trigger svg {
+      transform: rotate(180deg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+    }
+
+    .contact-copy {
+      background: rgba(255,255,251,0.94);
+      padding: 36px;
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-copy h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-bottom: 18px;
+      color: var(--slate);
+    }
+
+    .contact-copy p {
+      color: var(--slate-soft);
+      margin-bottom: 26px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      color: var(--slate-soft);
+    }
+
+    .contact-list div {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .contact-list div strong {
+      min-width: 80px;
+      color: var(--slate);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 18px;
+      background: rgba(237, 244, 236, 0.9);
+      border-radius: 32px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--slate);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid rgba(45, 59, 68, 0.14);
+      border-radius: 18px;
+      background: #fff;
+      padding: 14px 16px;
+      color: var(--slate);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--sage-deep);
+      box-shadow: 0 0 0 3px rgba(117, 151, 124, 0.12);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      align-self: start;
+      background: var(--slate);
+      color: #fff;
+      border-radius: 999px;
+      padding: 16px 28px;
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      width: fit-content;
+    }
+
+    .form-submit:hover,
+    .form-submit:focus {
+      background: #1f2c36;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      padding: 40px 0 24px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      border-top: 1px solid rgba(45, 59, 68, 0.1);
+      padding-top: 28px;
+      color: var(--slate-soft);
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--slate);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .social-list {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-list a {
+      width: 38px;
+      height: 38px;
+      background: rgba(117, 151, 124, 0.12);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--slate);
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .social-list a:hover,
+    .social-list a:focus {
+      background: rgba(117, 151, 124, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .services-grid,
+      .approach-grid,
+      .testimonial-grid,
+      .contact-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .hero-copy {
+        padding: 32px 20px;
+      }
+
+      .section-title h2 {
+        font-size: 2.3rem;
+      }
+
+      .about-image {
+        min-height: 300px;
+      }
+
+      .hero-actions,
+      .footer-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="page-shell nav-inner">
+      <a href="#home" class="brand">MindSpace Psychology</a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#approach">Approach</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="nav-cta" aria-label="Book a session">Book a Session</a>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section id="home" class="hero">
+      <div class="hero-copy fade-in">
+        <p style="color: var(--sage-deep); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.86rem; margin-bottom: 18px;">Therapy & Wellness</p>
+        <h1>A Space to Heal, Grow & Be Understood</h1>
+        <p>Compassionate psychological care for individuals, couples, and families in a calm, confidential setting.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary" aria-label="Book a free consultation">Book a Free Consultation</a>
+          <a href="#services" class="btn btn-secondary" aria-label="Explore our services">Explore Our Services</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-title fade-in">
+        <span>How We Can Help</span>
+        <h2>Support for every step of your journey</h2>
+      </div>
+      <div class="services-grid">
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="4" d="M32 12c-8 0-12 4-12 12s4 12 12 12 12-4 12-12-4-12-12-12z"/><path fill="none" stroke="currentColor" stroke-width="4" d="M16 50c0-8 8-12 16-12s16 4 16 12"/></svg>
+          <h3>Individual Therapy</h3>
+          <p>Build personal insight and resilience through evidence-based counseling tailored to your needs.</p>
+        </article>
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="4" d="M20 18c-5 0-8 4-8 8 0 7 8 12 12 18 4-6 12-11 12-18 0-4-3-8-8-8s-8 4-8 8z"/><path fill="none" stroke="currentColor" stroke-width="4" d="M44 18c-5 0-8 4-8 8 0 7 8 12 12 18 4-6 12-11 12-18 0-4-3-8-8-8s-8 4-8 8z"/></svg>
+          <h3>Couples Counseling</h3>
+          <p>Strengthen connection, communication, and shared understanding in a warm, supportive space.</p>
+        </article>
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle fill="none" stroke="currentColor" stroke-width="4" cx="32" cy="18" r="10"/><path fill="none" stroke="currentColor" stroke-width="4" d="M16 54c0-8 12-12 16-12s16 4 16 12"/></svg>
+          <h3>Child & Adolescent Psychology</h3>
+          <p>Support young minds with compassionate care that honors each child’s development and emotional safety.</p>
+        </article>
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="4" d="M14 42c0-11 7-19 18-19s18 8 18 19"/><path fill="none" stroke="currentColor" stroke-width="4" d="M32 23v-9"/><path fill="none" stroke="currentColor" stroke-width="4" d="M23 14h18"/></svg>
+          <h3>Anxiety & Stress Management</h3>
+          <p>Learn calming tools and healthy boundaries to reduce overwhelm and find emotional balance.</p>
+        </article>
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="4" d="M22 24l10-8 10 8v18c0 6-4 10-10 10s-10-4-10-10z"/><path fill="none" stroke="currentColor" stroke-width="4" d="M32 16v12"/></svg>
+          <h3>Trauma & PTSD Support</h3>
+          <p>Create a safe and steady healing path using trauma-informed, compassionate interventions.</p>
+        </article>
+        <article class="service-card fade-in" tabindex="0">
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect x="14" y="18" width="36" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><path fill="none" stroke="currentColor" stroke-width="4" d="M22 18v-4h20v4"/><path fill="none" stroke="currentColor" stroke-width="4" d="M26 34h12"/></svg>
+          <h3>Corporate Wellness Programs</h3>
+          <p>Enhance workplace resilience, mental wellness, and leadership through tailored organizational support.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title fade-in">
+        <span>Meet Your Therapist</span>
+        <h2>Meet Dr. Sarah Mercer, Ph.D.</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-image fade-in" aria-hidden="true"></div>
+        <div class="about-copy fade-in">
+          <h3>At the heart of care is understanding.</h3>
+          <p>Dr. Sarah Mercer is a licensed psychologist specializing in compassionate clinical support for adults, couples, and families. With a calm, human-centered approach, she creates safety for change through evidence-based methods and strength-focused collaboration.</p>
+          <ul class="credential-list">
+            <li>Licensed Psychologist, Ph.D.</li>
+            <li>12+ Years Clinical Experience</li>
+            <li>Trauma-Informed & Evidence-Based</li>
+            <li>Individual, Couples, and Family Care</li>
+            <li>Warm, confidential therapeutic environment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach">
+      <div class="section-title fade-in">
+        <span>Our Approach</span>
+        <h2>Practical care designed around you</h2>
+      </div>
+      <div class="approach-grid">
+        <article class="approach-card fade-in" tabindex="0">
+          <div class="approach-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="46" height="46"><path fill="none" stroke="currentColor" stroke-width="4" d="M16 36l10-12 10 12 10-12"/><path fill="none" stroke="currentColor" stroke-width="4" d="M26 50V28"/></svg>
+          </div>
+          <h3>Evidence-Based Methods</h3>
+          <p>Therapy is grounded in research with tools that support measurable growth and lasting mental wellness.</p>
+        </article>
+        <article class="approach-card fade-in" tabindex="0">
+          <div class="approach-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="46" height="46"><circle fill="none" stroke="currentColor" stroke-width="4" cx="32" cy="24" r="10"/><path fill="none" stroke="currentColor" stroke-width="4" d="M16 52c0-8 16-12 16-12s16 4 16 12"/></svg>
+          </div>
+          <h3>Confidential & Safe</h3>
+          <p>Every session is held with care, privacy, and respect to support trust and emotional safety.</p>
+        </article>
+        <article class="approach-card fade-in" tabindex="0">
+          <div class="approach-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="46" height="46"><path fill="none" stroke="currentColor" stroke-width="4" d="M16 26h32v22H16z"/><path fill="none" stroke="currentColor" stroke-width="4" d="M22 14h20"/><path fill="none" stroke="currentColor" stroke-width="4" d="M24 34h16"/></svg>
+          </div>
+          <h3>Personalized Plans</h3>
+          <p>Therapy is tailored to your values, circumstances, and pace with clear goals and compassionate guidance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="section-title fade-in">
+        <span>Testimonials</span>
+        <h2>Words from people who found a gentler way forward</h2>
+      </div>
+      <div class="testimonial-grid">
+        <article class="testimonial-card fade-in" tabindex="0">
+          <div class="testimonial-stars" aria-label="5 star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <blockquote>"Sarah helped me feel seen and created a calm space where I could work through worry and begin to trust myself again."</blockquote>
+          <strong>- Maya</strong>
+        </article>
+        <article class="testimonial-card fade-in" tabindex="0">
+          <div class="testimonial-stars" aria-label="5 star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <blockquote>"The guidance felt thoughtful and deeply respectful — I learned tools that helped my relationship feel more connected."</blockquote>
+          <strong>- Alex</strong>
+        </article>
+        <article class="testimonial-card fade-in" tabindex="0">
+          <div class="testimonial-stars" aria-label="5 star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <blockquote>"I appreciated the practical support and the warm atmosphere. Each session felt like a steady step toward healing."</blockquote>
+          <strong>- Sam</strong>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="section-title fade-in">
+        <span>Questions</span>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq-list fade-in">
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span>What should I expect in my first session?</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer"><p>Your first session is a warm, introductory conversation where we explore your goals, history, and what feels most important right now. It’s a chance to get comfortable and ask questions.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span>Do you accept insurance?</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer"><p>Insurance acceptance varies by plan and provider. Please contact the practice directly for the most current information and to confirm whether your plan is accepted.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span>What is the cost per session?</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer"><p>Session fees are based on service type and duration. During your inquiry, we will share transparent pricing and any available sliding scale or consultation options.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span>Is online therapy available?</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer"><p>Yes, online therapy is offered for clients who prefer virtual sessions for convenience or accessibility. We also provide in-person appointments when available.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span>How do I prepare for therapy?</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="faq-answer"><p>Bring your curiosity and honesty. You don’t need to have all the answers — the first step is simply reaching out and sharing what feels important to you.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title fade-in">
+        <span>Get in Touch</span>
+        <h2>Book your first session or ask a question</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-copy fade-in">
+          <h3>Contact & Booking</h3>
+          <p>If you are ready to schedule or want to learn more about services, please reach out. We are here to listen, answer your questions, and help you find the right support.</p>
+          <div class="contact-list">
+            <div><strong>Address</strong><span>312 Willow Lane, Suite 204, Cedar Grove, CA</span></div>
+            <div><strong>Phone</strong><span><a href="tel:+1234567890">(123) 456-7890</a></span></div>
+            <div><strong>Email</strong><span><a href="mailto:hello@mindspacepsych.com">hello@mindspacepsych.com</a></span></div>
+          </div>
+        </div>
+        <form class="contact-form fade-in" aria-label="Contact form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" />
+          </div>
+          <div class="form-group">
+            <label for="service">Service interested in</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option>Individual Therapy</option>
+              <option>Couples Counseling</option>
+              <option>Child & Adolescent Psychology</option>
+              <option>Anxiety & Stress Management</option>
+              <option>Trauma & PTSD Support</option>
+              <option>Corporate Wellness Programs</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us how we can support you"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Request</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-shell">
+    <div class="footer-inner fade-in">
+      <div>
+        <p class="footer-brand">MindSpace Psychology</p>
+        <p style="max-width: 340px; color: var(--slate-soft); margin-top: 10px;">Serene psychological care designed to help you feel heard, grounded, and more connected.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="social-list" aria-label="Social links">
+        <a href="#" aria-label="Follow on Facebook">F</a>
+        <a href="#" aria-label="Follow on Twitter">T</a>
+        <a href="#" aria-label="Follow on Instagram">I</a>
+      </div>
+    </div>
+    <p style="text-align:center; color: var(--slate-soft); margin-top: 22px;">© 2026 MindSpace Psychology. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const fadeItems = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      fadeItems.forEach(item => observer.observe(item));
+
+      const faqButtons = document.querySelectorAll('.faq-trigger');
+      faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const item = button.closest('.faq-item');
+          const expanded = button.getAttribute('aria-expanded') === 'true';
+          button.setAttribute('aria-expanded', String(!expanded));
+          item.classList.toggle('open');
+        });
+      });
+
+      const contactForm = document.querySelector('.contact-form');
+      contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('Thank you for your message. We will contact you soon.');
+        contactForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>
