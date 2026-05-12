@@ -453,6 +453,8 @@
     }
 
     .faq-trigger svg {
+      width: 18px;
+      height: 18px;
       transition: transform var(--transition);
       color: var(--sage-deep);
     }
@@ -460,7 +462,7 @@
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
+      transition: max-height 0.45s ease, padding 0.35s ease;
       padding: 0 28px;
     }
 
@@ -470,7 +472,6 @@
     }
 
     .faq-item.open .faq-answer {
-      max-height: 240px;
       padding: 0 28px 24px;
     }
 
@@ -849,38 +850,38 @@
       <div class="faq-list fade-in">
         <div class="faq-item">
           <button class="faq-trigger" aria-expanded="false">
-            <span>What should I expect in my first session?</span>
+            <span>What happens during my first session?</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer"><p>Your first session is a warm, introductory conversation where we explore your goals, history, and what feels most important right now. It’s a chance to get comfortable and ask questions.</p></div>
+          <div class="faq-answer"><p>Your first session is a warm, introductory conversation where we explore your goals, background, and what feels most important right now. It’s a gentle space to ask questions and begin to feel comfortable.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-trigger" aria-expanded="false">
-            <span>Do you accept insurance?</span>
+            <span>Does this practice accept insurance?</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer"><p>Insurance acceptance varies by plan and provider. Please contact the practice directly for the most current information and to confirm whether your plan is accepted.</p></div>
+          <div class="faq-answer"><p>Insurance acceptance depends on your provider and plan. Please reach out directly so we can confirm coverage and help you understand available payment options.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-trigger" aria-expanded="false">
-            <span>What is the cost per session?</span>
+            <span>How much does a session typically cost?</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer"><p>Session fees are based on service type and duration. During your inquiry, we will share transparent pricing and any available sliding scale or consultation options.</p></div>
+          <div class="faq-answer"><p>Fees vary depending on the service and appointment length. When you reach out, we will share transparent pricing and any available consultation or sliding scale details.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-trigger" aria-expanded="false">
-            <span>Is online therapy available?</span>
+            <span>Can I schedule sessions online?</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer"><p>Yes, online therapy is offered for clients who prefer virtual sessions for convenience or accessibility. We also provide in-person appointments when available.</p></div>
+          <div class="faq-answer"><p>Yes, online sessions are available for clients who prefer virtual care. In-person appointments can also be arranged based on availability.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-trigger" aria-expanded="false">
-            <span>How do I prepare for therapy?</span>
+            <span>How should I prepare for my first appointment?</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M6 9l6 6 6-6"/></svg>
           </button>
-          <div class="faq-answer"><p>Bring your curiosity and honesty. You don’t need to have all the answers — the first step is simply reaching out and sharing what feels important to you.</p></div>
+          <div class="faq-answer"><p>Come with an open mind and a sense of what you’d like support with. You don’t need to have a perfect plan — the first step is simply reaching out and sharing what feels most important.</p></div>
         </div>
       </div>
     </section>
@@ -972,11 +973,24 @@
 
       const faqButtons = document.querySelectorAll('.faq-trigger');
       faqButtons.forEach(button => {
+        const answer = button.nextElementSibling;
         button.addEventListener('click', () => {
           const item = button.closest('.faq-item');
           const expanded = button.getAttribute('aria-expanded') === 'true';
           button.setAttribute('aria-expanded', String(!expanded));
           item.classList.toggle('open');
+
+          if (!expanded) {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+          } else {
+            answer.style.maxHeight = '0px';
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        document.querySelectorAll('.faq-item.open .faq-answer').forEach(answer => {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
         });
       });
 
